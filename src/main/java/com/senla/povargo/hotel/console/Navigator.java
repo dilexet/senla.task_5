@@ -17,7 +17,6 @@ public class Navigator {
     }
 
     public void navigate(Integer index) throws Exception {
-        // TODO: проверка ввода пользователем
         MenuItem menuItem = currentMenu.getMenuItems()[index - 1];
         if (menuItem.getAction() != null) {
             menuItem.doAction();
