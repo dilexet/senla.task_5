@@ -22,19 +22,19 @@ public class SortServiceAction implements IAction {
 
         switch (command) {
             case 0 -> {
-                var services = administrator.sortServices(Sort.by("id"));
+                var services = administrator.getServices(Sort.by("id"));
                 for (var service : services) {
                     System.out.println(administrator.getServiceDetails(service.getId()).toString());
                 }
             }
             case 1 -> {
-                var services = administrator.sortServices(Sort.by("serviceName"));
+                var services = administrator.getServices(Sort.by("serviceName"));
                 for (var service : services) {
                     System.out.println(administrator.getServiceDetails(service.getId()).toString());
                 }
             }
             case 2 -> {
-                var services = administrator.sortServices(Sort.by("price"));
+                var services = administrator.getServices(Sort.by("price"));
                 for (var service : services) {
                     System.out.println(administrator.getServiceDetails(service.getId()).toString());
                 }

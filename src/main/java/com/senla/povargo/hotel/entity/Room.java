@@ -13,7 +13,7 @@ public class Room {
     @Column(unique = true, nullable = false)
     private int number;
     private double price;
-    private Status status;
+    private Status status = Status.FREE;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
@@ -21,14 +21,10 @@ public class Room {
 
     public Room(int number, double price) throws Exception {
         this.number = number;
-        status = Status.FREE;
-        if (price < 0.0) {
-            throw new Exception("incorrect price");
-        }
         this.price = price;
     }
 
-    public Room() {
+    protected Room(){
 
     }
 

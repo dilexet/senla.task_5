@@ -13,12 +13,11 @@ import com.senla.povargo.hotel.tools.Converter;
 import com.senla.povargo.hotel.tools.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Controller
-@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
+@Component
 public class Administrator {
 
     @Autowired
@@ -32,8 +31,13 @@ public class Administrator {
         return roomManagement.getRooms(sort);
     }
 
-    public List<Service> sortServices(Sort sort) {
-        return serviceManagement.getServices(sort);
+    public RoomDTO getRoomDetails(Long id) throws Exception {
+        var room = roomManagement.getById(id);
+        if (room.getClient() != null) {
+            var client = clientManagement.getById(room.getClient().getId());
+            return Converter.convertToDTO(room, client);
+        }
+        return Converter.convertToDTO(room);
     }
 
     public void accommodateInRoom(Client client) {
@@ -48,29 +52,26 @@ public class Administrator {
         Logger.Info(roomManagement.changePriceRoom(room.getNumber(), room.getPrice()));
     }
 
-    public void changePriceService(Service service) throws Exception {
-        Logger.Info(serviceManagement.changePriceService(service.getServiceName(), service.getPrice()));
-    }
-
     public void addRoom(Room room) {
         Logger.Info(roomManagement.addRoom(room));
     }
 
-    public void addService(Service service) {
-        Logger.Info(serviceManagement.addService(service));
-    }
+    // --------------------------------------------------------------------
 
-    public RoomDTO getRoomDetails(Long id) throws Exception {
-        var room = roomManagement.getById(id);
-        if (room.getClient() != null) {
-            var client = clientManagement.getById(room.getClient().getId());
-            return Converter.convertToDTO(room, client);
-        }
-        return Converter.convertToDTO(room);
+    public List<Service> getServices(Sort sort) {
+        return serviceManagement.getServices(sort);
     }
 
     public ServiceDTO getServiceDetails(Long id) {
         var service = serviceManagement.getById(id);
         return Converter.convertToDTO(service);
+    }
+
+    public void changePriceService(Service service) throws Exception {
+        Logger.Info(serviceManagement.changePriceService(service.getServiceName(), service.getPrice()));
+    }
+
+    public void addService(Service service) {
+        Logger.Info(serviceManagement.addService(service));
     }
 }

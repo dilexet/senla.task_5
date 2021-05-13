@@ -8,18 +8,18 @@ import com.senla.povargo.hotel.console.actions.serviceactions.SortServiceAction;
 import com.senla.povargo.hotel.console.menu.Menu;
 import com.senla.povargo.hotel.console.menu.items.MenuItem;
 import com.senla.povargo.hotel.manager.Administrator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Builder {
 
-    private final Administrator administrator;
+    @Autowired
+    private Administrator administrator;
+    @Autowired
     private Menu rootMenu;
 
-    public Builder(Administrator administrator) {
-        this.administrator = administrator;
-    }
-
     public void buildMenu() {
-        Menu rootMenu = new Menu();
         rootMenu.setName("Root Menu Options:");
 
         MenuItem accommodateInRoom = new MenuItem("Accommodate in a room", new AccommodateInRoomAction(administrator), rootMenu);

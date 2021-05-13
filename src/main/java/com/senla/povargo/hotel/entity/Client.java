@@ -17,7 +17,7 @@ public class Client {
         this.name = name;
     }
 
-    public Client() {
+    protected Client() {
 
     }
 

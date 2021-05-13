@@ -2,15 +2,12 @@ package com.senla.povargo.hotel.service;
 
 import com.senla.povargo.hotel.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Service
-@Configurable
 public class ServiceManagement {
     @Autowired
     ServiceRepository serviceRepository;

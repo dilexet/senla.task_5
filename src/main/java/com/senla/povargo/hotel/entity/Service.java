@@ -13,13 +13,10 @@ public class Service {
 
     public Service(String serviceName, double price) throws Exception {
         this.serviceName = serviceName;
-        if (price < 0.0) {
-            throw new Exception("incorrect price");
-        }
         this.price = price;
     }
 
-    public Service() {
+    protected Service() {
 
     }
 

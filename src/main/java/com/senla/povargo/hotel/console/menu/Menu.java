@@ -1,7 +1,9 @@
 package com.senla.povargo.hotel.console.menu;
 
 import com.senla.povargo.hotel.console.menu.items.MenuItem;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Menu {
 
 	private String name;

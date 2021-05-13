@@ -5,15 +5,12 @@ import com.senla.povargo.hotel.entity.Room;
 import com.senla.povargo.hotel.enums.Status;
 import com.senla.povargo.hotel.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Service
-@Configurable
 public class RoomManagement {
 
     @Autowired
@@ -31,7 +28,7 @@ public class RoomManagement {
             room.get().setStatus(Status.BUSY);
             room.get().setClient(client);
             roomRepository.save(room.get());
-            return "Room " + room.get().getNumber() + " is busy";
+            return "Client " + room.get().getClient().getName() + " in successfully accommodate in room number "+ room.get().getNumber();
         }
     }
 
