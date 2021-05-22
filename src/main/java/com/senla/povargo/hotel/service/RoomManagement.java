@@ -16,8 +16,12 @@ public class RoomManagement {
     @Autowired
     RoomRepository roomRepository;
 
-    public List<Room> getRooms(Sort sort) {
-        return roomRepository.findAll(sort);
+    public List<Room> getRooms(Sort sort) throws Exception {
+        var rooms = roomRepository.findAll(sort);
+        if (rooms.isEmpty()) {
+            throw new Exception("No rooms");
+        }
+        return rooms;
     }
 
     public String accommodateInRoom(Client client) {
@@ -28,7 +32,7 @@ public class RoomManagement {
             room.get().setStatus(Status.BUSY);
             room.get().setClient(client);
             roomRepository.save(room.get());
-            return "Client " + room.get().getClient().getName() + " in successfully accommodate in room number "+ room.get().getNumber();
+            return "Client " + room.get().getClient().getName() + " in successfully accommodate in room number " + room.get().getNumber();
         }
     }
 

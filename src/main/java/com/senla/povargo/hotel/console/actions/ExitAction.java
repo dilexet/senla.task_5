@@ -6,7 +6,7 @@ public class ExitAction implements IAction {
 
 	@Override
 	public void execute() {
-		Logger.Info("Process terminated");
+		Logger.info("Process terminated");
 		System.exit(0);
 	}
 }

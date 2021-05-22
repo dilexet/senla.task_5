@@ -12,11 +12,15 @@ public class ServiceManagement {
     @Autowired
     ServiceRepository serviceRepository;
 
-    public List<com.senla.povargo.hotel.entity.Service> getServices(Sort sort) {
-        return serviceRepository.findAll(sort);
+    public List<com.senla.povargo.hotel.entity.Service> getServices(Sort sort) throws Exception {
+        var services = serviceRepository.findAll(sort);
+        if (services.isEmpty()) {
+            throw new Exception("No services");
+        }
+        return services;
     }
 
-    public String changePriceService(String serviceName, double newPrice) throws Exception {
+    public String changePriceService(String serviceName, double newPrice) {
         var service = serviceRepository.findByServiceName(serviceName);
         if (service == null) {
             return "Service not found";
@@ -37,7 +41,11 @@ public class ServiceManagement {
         }
     }
 
-    public com.senla.povargo.hotel.entity.Service getById(Long id) {
-        return serviceRepository.findById(id).orElse(null);
+    public com.senla.povargo.hotel.entity.Service getById(Long id) throws Exception {
+        var service = serviceRepository.findById(id).orElse(null);
+        if (service == null) {
+            throw new Exception("Service not found");
+        }
+        return service;
     }
 }

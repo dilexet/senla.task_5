@@ -2,70 +2,90 @@ package com.senla.povargo.hotel.controller;
 
 import com.senla.povargo.hotel.entity.Client;
 import com.senla.povargo.hotel.entity.Room;
-import com.senla.povargo.hotel.service.ClientManagement;
 import com.senla.povargo.hotel.service.RoomManagement;
+import com.senla.povargo.hotel.tools.BindingError;
 import com.senla.povargo.hotel.tools.Converter;
 import com.senla.povargo.hotel.tools.Logger;
+import com.senla.povargo.hotel.tools.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("room")
 public class RoomController {
+    private static final String SUCCESS = "OK";
+    private static final String DEFAULT_SORT = "id";
+    private static final String EMPTY = "";
     @Autowired
     RoomManagement roomManagement;
 
-    @Autowired
-    ClientManagement clientManagement;
-
     @PostMapping("add")
-    public ResponseEntity<String> addRoom(@RequestBody Room room) {
+    public ResponseEntity<Response> addRoom(@RequestBody @Valid Room room,
+                                            BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            var errors = BindingError.getErrors(bindingResult);
+            throw new Exception(errors);
+        }
         var result = roomManagement.addRoom(room);
-        Logger.Info(result);
-        return ResponseEntity.ok(result);
+        Logger.info(result);
+        return ResponseEntity.ok(new Response(5, SUCCESS, result));
     }
 
     @PostMapping("accommodate")
-    public ResponseEntity<String> accommodateInRoom(@RequestBody Client client) {
+    public ResponseEntity<Response> accommodateInRoom(@RequestBody @Valid Client client,
+                                                      BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            var errors = BindingError.getErrors(bindingResult);
+            throw new Exception(errors);
+        }
         var result = roomManagement.accommodateInRoom(client);
-        Logger.Info(result);
-        return ResponseEntity.ok(result);
+        Logger.info(result);
+        return ResponseEntity.ok(new Response(6, SUCCESS, result));
     }
 
     @PostMapping("checkOut")
-    public ResponseEntity<String> checkOutRoom(@RequestBody Room room) {
+    public ResponseEntity<Response> checkOutRoom(@RequestBody @Valid Room room,
+                                                 BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            var errors = BindingError.getErrors(bindingResult);
+            throw new Exception(errors);
+        }
         var result = roomManagement.checkOutRoom(room.getNumber());
-        Logger.Info(result);
-        return ResponseEntity.ok(result);
+        Logger.info(result);
+        return ResponseEntity.ok(new Response(7, SUCCESS, result));
     }
 
     @PostMapping("changePrice")
-    public ResponseEntity<String> changePriceRoom(@RequestBody Room room) {
+    public ResponseEntity<Response> changePriceRoom(@RequestBody @Valid Room room,
+                                                    BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            var errors = BindingError.getErrors(bindingResult);
+            throw new Exception(errors);
+        }
         var result = roomManagement.changePriceRoom(room.getNumber(), room.getPrice());
-        Logger.Info(result);
-        return ResponseEntity.ok(result);
+        Logger.info(result);
+        return ResponseEntity.ok(new Response(8, SUCCESS, result));
     }
 
     @GetMapping("getById/{id}")
-    public ResponseEntity<String> getRoomById(@PathVariable Long id) throws Exception {
+    public ResponseEntity<Response> getRoomById(@PathVariable Long id) throws Exception {
         var room = roomManagement.getById(id);
-        if (room.getClient() != null) {
-            var client = clientManagement.getById(room.getClient().getId());
-            return ResponseEntity.ok(Converter.convertToDTO(room, client).toString());
-        }
-        return ResponseEntity.ok(Converter.convertToDTO(room).toString());
+        var result = Converter.convertToDTO(room);
+        return ResponseEntity.ok(new Response(9, SUCCESS, result));
     }
 
     @GetMapping("getRooms/{sort}")
-    public List<Room> getRooms(@PathVariable String sort) {
-        // TODO: нужно ли конвертить в list<dto>
-        if (sort == null || sort.equals("")) {
-            sort = "id";
+    public ResponseEntity<Response> getRooms(@PathVariable String sort) throws Exception {
+        if (sort == null || sort.equals(EMPTY)) {
+            sort = DEFAULT_SORT;
         }
-        return roomManagement.getRooms(Sort.by(sort));
+        var result = roomManagement.getRooms(Sort.by(sort)).stream().map(Converter::convertToDTO).collect(Collectors.toList());
+        return ResponseEntity.ok(new Response(10, SUCCESS, result));
     }
 }

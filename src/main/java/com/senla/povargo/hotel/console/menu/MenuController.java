@@ -5,7 +5,6 @@ import com.senla.povargo.hotel.console.Navigator;
 import com.senla.povargo.hotel.tools.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import java.util.Scanner;
 
@@ -28,7 +27,7 @@ public class MenuController {
             try {
                 navigator.navigate(choice);
             } catch (Exception e) {
-                Logger.Error(e.getMessage());
+                Logger.error(e.getMessage());
                 break;
             }
         }

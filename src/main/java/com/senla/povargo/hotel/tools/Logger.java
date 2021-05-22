@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Logger {
 
-    public static void Error(String message) {
+    public static void error(String message) {
         Date date = new Date();
         String str = date +
                 " " +
@@ -15,7 +15,7 @@ public class Logger {
         System.out.println(str);
     }
 
-    public static void Info(String message) {
+    public static void info(String message) {
         Date date = new Date();
         String str = date +
                 " " +

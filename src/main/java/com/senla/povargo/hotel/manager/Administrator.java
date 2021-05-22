@@ -27,51 +27,47 @@ public class Administrator {
     @Autowired
     ClientManagement clientManagement;
 
-    public List<Room> getRooms(Sort sort) {
+    public List<Room> getRooms(Sort sort) throws Exception {
         return roomManagement.getRooms(sort);
     }
 
     public RoomDTO getRoomDetails(Long id) throws Exception {
         var room = roomManagement.getById(id);
-        if (room.getClient() != null) {
-            var client = clientManagement.getById(room.getClient().getId());
-            return Converter.convertToDTO(room, client);
-        }
         return Converter.convertToDTO(room);
     }
 
     public void accommodateInRoom(Client client) {
-        Logger.Info(roomManagement.accommodateInRoom(client));
+        Logger.info(roomManagement.accommodateInRoom(client));
     }
 
     public void checkOutRoom(int number) {
-        Logger.Info(roomManagement.checkOutRoom(number));
+        Logger.info(roomManagement.checkOutRoom(number));
     }
 
     public void changePriceRoom(Room room) {
-        Logger.Info(roomManagement.changePriceRoom(room.getNumber(), room.getPrice()));
+        Logger.info(roomManagement.changePriceRoom(room.getNumber(), room.getPrice()));
     }
 
     public void addRoom(Room room) {
-        Logger.Info(roomManagement.addRoom(room));
+        Logger.info(roomManagement.addRoom(room));
     }
 
     // --------------------------------------------------------------------
 
-    public List<Service> getServices(Sort sort) {
+    public List<Service> getServices(Sort sort) throws Exception {
         return serviceManagement.getServices(sort);
     }
 
-    public ServiceDTO getServiceDetails(Long id) {
+    public ServiceDTO getServiceDetails(Long id) throws Exception {
         var service = serviceManagement.getById(id);
         return Converter.convertToDTO(service);
     }
 
-    public void changePriceService(Service service) throws Exception {
-        Logger.Info(serviceManagement.changePriceService(service.getServiceName(), service.getPrice()));
+    public void changePriceService(Service service) {
+        Logger.info(serviceManagement.changePriceService(service.getServiceName(), service.getPrice()));
     }
 
     public void addService(Service service) {
-        Logger.Info(serviceManagement.addService(service));
+        Logger.info(serviceManagement.addService(service));
     }
 }

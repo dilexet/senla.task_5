@@ -1,6 +1,8 @@
 package com.senla.povargo.hotel.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Client {
@@ -8,6 +10,8 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true, nullable = false)
+    @NotEmpty(message = "Client name is mandatory")
+    @Size(min = 2, max = 30, message = "Client name should be between 2 and 30 characters")
     private String name;
 
     @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
@@ -22,9 +26,6 @@ public class Client {
     }
 
     public String getName() {
-        if (name == null) {
-            return "";
-        }
         return name;
     }
 
