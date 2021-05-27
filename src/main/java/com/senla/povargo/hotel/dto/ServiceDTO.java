@@ -9,12 +9,24 @@ public class ServiceDTO {
         this.price = price;
     }
 
+    public ServiceDTO() {
+
+    }
+
     public String getServiceName() {
         return serviceName;
     }
 
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
     public double getPrice() {
         return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @Override

@@ -22,4 +22,21 @@ public class Converter {
     public static ClientDTO convertToDTO(Client client) {
         return new ClientDTO(client.getName());
     }
+
+    public static Room convertToEntity(RoomDTO roomDTO) {
+        Room room = new Room(roomDTO.getNumber(), roomDTO.getPrice());
+        if (roomDTO.getClient() != null) {
+            room.setClient(convertToEntity(roomDTO.getClient()));
+        }
+        room.setStatus(roomDTO.getStatus());
+        return room;
+    }
+
+    public static Service convertToEntity(ServiceDTO serviceDTO) {
+        return new Service(serviceDTO.getServiceName(), serviceDTO.getPrice());
+    }
+
+    public static Client convertToEntity(ClientDTO clientDTO) {
+        return new Client(clientDTO.getName());
+    }
 }

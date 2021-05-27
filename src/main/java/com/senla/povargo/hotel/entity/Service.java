@@ -18,7 +18,7 @@ public class Service {
     @NotNull(message = "Service price can not be null")
     private Double price;
 
-    public Service(String serviceName, Double price) throws Exception {
+    public Service(String serviceName, Double price) {
         this.serviceName = serviceName;
         this.price = price;
     }
