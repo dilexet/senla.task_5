@@ -1,7 +1,6 @@
 package com.senla.povargo.hotel.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 
 @Entity
 public class Service {
@@ -10,12 +9,8 @@ public class Service {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    @NotEmpty(message = "Service name is mandatory")
-    @Size(min = 2, max = 30, message = "Service name should be between 2 and 30 characters")
     private String serviceName;
 
-    @Min(value = 0, message = "Service price should be greater than 0")
-    @NotNull(message = "Service price can not be null")
     private Double price;
 
     public Service(String serviceName, Double price) {
