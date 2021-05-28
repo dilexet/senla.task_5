@@ -6,13 +6,13 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public class RoomDTO {
-    @Min(value = 1, message = "Room number should be greater than 0")
-    @NotNull(message = "Room number can not be null")
+    @Min(value = 1, message = "room.number.notMinValue.failed.msg")
+    @NotNull(message = "room.number.notNull.failed.msg")
     private int number;
-    @Min(value = 1, message = "Room price should be greater than 0")
-    @NotNull(message = "Room price can not be null")
+    @Min(value = 1, message = "room.price.notMinValue.failed.msg")
+    @NotNull(message = "room.price.notNull.failed.msg")
     private double price;
-    @NotNull(message = "Room status can not be null")
+    @NotNull(message = "room.status.notNull.failed.msg")
     private Status status = Status.FREE;
     private ClientDTO client;
 

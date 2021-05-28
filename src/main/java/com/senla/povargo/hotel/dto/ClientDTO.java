@@ -4,8 +4,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 public class ClientDTO {
-    @NotEmpty(message = "Client name is mandatory")
-    @Size(min = 2, max = 30, message = "Client name should be between 2 and 30 characters")
+    @NotEmpty(message = "client.name.notNull.failed.msg")
+    @Size(min = 2, max = 30, message = "client.name.outOfSize.failed.msg")
     private String name;
 
     public ClientDTO(String name) {

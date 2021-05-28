@@ -6,12 +6,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class ServiceDTO {
-    @NotEmpty(message = "Service name is mandatory")
-    @Size(min = 2, max = 30, message = "Service name should be between 2 and 30 characters")
+    @NotEmpty(message = "service.name.notNull.failed.msg")
+    @Size(min = 2, max = 30, message = "service.name.outOfSize.failed.msg")
     public String serviceName;
 
-    @Min(value = 0, message = "Service price should be greater than 0")
-    @NotNull(message = "Service price can not be null")
+    @Min(value = 0, message = "service.price.notMinValue.failed.msg")
+    @NotNull(message = "service.price.notNull.failed.msg")
     public double price;
 
     public ServiceDTO(String serviceName, double price) {
