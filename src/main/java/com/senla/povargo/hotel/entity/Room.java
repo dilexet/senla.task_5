@@ -3,7 +3,6 @@ package com.senla.povargo.hotel.entity;
 import com.senla.povargo.hotel.enums.Status;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 
 @Entity
 public class Room {
@@ -12,15 +11,10 @@ public class Room {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    @Min(value = 1, message = "Room number should be greater than 0")
-    @NotNull(message = "Room number can not be null")
     private int number;
 
-    @Min(value = 1, message = "Room price should be greater than 0")
-    @NotNull(message = "Room price can not be null")
     private double price;
 
-    @NotNull(message = "Room status can not be null")
     private Status status = Status.FREE;
 
     @OneToOne(cascade = CascadeType.ALL)

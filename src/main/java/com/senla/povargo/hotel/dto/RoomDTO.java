@@ -2,9 +2,17 @@ package com.senla.povargo.hotel.dto;
 
 import com.senla.povargo.hotel.enums.Status;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 public class RoomDTO {
+    @Min(value = 1, message = "Room number should be greater than 0")
+    @NotNull(message = "Room number can not be null")
     private int number;
+    @Min(value = 1, message = "Room price should be greater than 0")
+    @NotNull(message = "Room price can not be null")
     private double price;
+    @NotNull(message = "Room status can not be null")
     private Status status = Status.FREE;
     private ClientDTO client;
 
@@ -35,12 +43,19 @@ public class RoomDTO {
 
     @Override
     public String toString() {
+        if (client != null) {
+            return "RoomDTO{" +
+                    "number=" + number +
+                    ", price=" + price +
+                    ", status=" + status +
+                    ", client=" + client.getName() +
+                    '}';
+        }
         return "RoomDTO{" +
                 "number=" + number +
                 ", price=" + price +
                 ", status=" + status +
-                ", client=" + client.getName() +
-                '}';
+                ", client= null}";
     }
 
     public int getNumber() {
